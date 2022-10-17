@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="form-group">
                 <label for="cantidad">Ingrese Cantidad</label>
-                <input type="number" id="cantidad" placeholder="cantidad..." class="form-control form-control-lg">
+                <input type="number" [(ngModel)]="cantidad" id="cantidad" placeholder="cantidad..." class="form-control form-control-lg" (input)="convertir()">
             </div>
         </div>
     </div>
@@ -12,10 +12,8 @@
         <div class="col-lg-6 mt-2">
             <div class="form-group">
                 <label for="tengo">Tengo</label>
-                <select class="form-select form-select-lg" id="tengo" aria-label="Default select example">
-                    <option value="1">USD</option>
-                    <option value="2">EUR</option>
-                    <option value="3">LIBRA</option>
+                <select class="form-select form-select-lg" [(ngModel)]="tengo" id="tengo" (change)="convertir()" aria-label="Default select example">
+                    <option *ngFor="let moneda of monedas">{{moneda}}</option>
                   </select>
                   
             </div>    
@@ -23,13 +21,17 @@
         <div class="col-lg-6 mt-2">
             <div class="form-group">
                 <label for="quiero">Quiero</label>
-                <select class="form-select form-select-lg" aria-label="Default select example">
-                    <option value="1">USD</option>
-                    <option value="2">EUR</option>
-                    <option value="3">LIBRA</option>
+                <select class="form-select form-select-lg"  [(ngModel)]="quiero" (change)="convertir()" aria-label="Default select example">
+                    <option *ngFor="let moneda of monedas">{{moneda}}</option>
                   </select>
                   
             </div>    
         </div>
     </div>
+
+    <h5 *ngIf="cantidad > 0" class="text-center mt-5">
+        <span class="badge bg-success me-2">{{cantidad}} {{tengo}}</span>
+        <span class="badge bg-secondary"> son</span>
+        <span class="badge bg-success ms-2"> {{total | number : '0.0-2'}} {{quiero}}</span>
+    </h5>
 </div>
